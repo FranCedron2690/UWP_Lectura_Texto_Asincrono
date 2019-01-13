@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
@@ -32,18 +33,23 @@ namespace UWP_Lectura_Texto_Asincrono
 
         private async void Lectura_Fichero (object sender, RoutedEventArgs e)
         {
+            texto_Fichero.Text = await LeyendoFichero();
+        }
+
+        private async Task<String> LeyendoFichero()
+        {
             String textoFinal = "";
             var folder = Windows.ApplicationModel.Package.Current.InstalledLocation;
             var file = await folder.GetFileAsync("Educación_Fundamental.txt");
             var readFile = await Windows.Storage.FileIO.ReadLinesAsync(file);
-            
+
             Debug.WriteLine("Total lineas: " + readFile.Count);
             for (int i = 1; i <= readFile.Count; i++)
             {
                 textoFinal += "\n" + readFile[i - 1];
 
-                float percent = ((float)i / readFile.Count ) * 100;
-                Debug.WriteLine (percent);
+                float percent = ((float)i / readFile.Count) * 100;
+                Debug.WriteLine(percent);
                 Debug.WriteLine(readFile[i - 1]);
                 Windows.UI.Core.DispatchedHandler porcentajeTexto = () =>
                 {
@@ -52,7 +58,8 @@ namespace UWP_Lectura_Texto_Asincrono
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, porcentajeTexto);
             }
 
-            texto_Fichero.Text = textoFinal;
+            return textoFinal;
+
         }
     }
 }
