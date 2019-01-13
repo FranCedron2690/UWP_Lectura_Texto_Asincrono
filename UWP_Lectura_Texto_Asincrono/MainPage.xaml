@@ -9,6 +9,17 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="READ" Click="Lectura_Fichero" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="97,34,0,0"/>
+        <TextBox x:Name="texto_porcentaje" Width="100" Height="40" VerticalAlignment="Top" Margin="180,30,80,0"/>
+        
+        <TextBlock x:Name="texto_Fichero" Width="359" TextWrapping="Wrap" Margin="1,68,0,-92"/>
 
     </Grid>
 </Page>
